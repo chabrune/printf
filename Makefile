@@ -1,22 +1,40 @@
-NAME			= libftprintf.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/11/14 18:51:05 by chabrune          #+#    #+#              #
+#    Updated: 2022/11/14 18:51:05 by chabrune         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRC				= 
+SRCS			= printaddr.c \
+				ft_printf.c \
+				printchar.c \
+				printnbr.c \
+				printnbrbase.c \
+				printstr.c \
+				printunbr.c
 
-OBJ 			= (SRC:.c=.o)
+OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -I.
 
+NAME			= libftprintf.a
 
+all:			$(NAME)
 
-$(NAME) : 
+$(NAME):		$(OBJS)
+				ar rcs $(NAME) $(OBJS)
 
+clean:
+				$(RM) $(OBJS)
 
-all :
+fclean:			clean
+				$(RM) $(NAME)
 
-clean :
-
-fclean :
-
-re :  
+re:				fclean $(NAME)
