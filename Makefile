@@ -10,13 +10,14 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= printaddr.c \
+SRCS			= ft_print_addr.c \
 				ft_printf.c \
-				printchar.c \
-				printnbr.c \
-				printnbrbase.c \
-				printstr.c \
-				printunbr.c
+				ft_print_char.c \
+				ft_print_nbr.c \
+				ft_print_nbr_base.c \
+				ft_print_str.c \
+				ft_print_u_nbr.c \
+				ft_print_percent.c \
 
 OBJS			= $(SRCS:.c=.o)
 

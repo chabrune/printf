@@ -1,14 +1,32 @@
-#ifndef PRINTF_H
-# define PRINTF_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/21 23:47:51 by chabrune          #+#    #+#             */
+/*   Updated: 2022/11/23 14:15:13 by chabrune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+
+# include <limits.h>
 # include <stdarg.h>
+# include <stdint.h>
+# include <stdlib.h>
 # include <unistd.h>
 
-void	printchar(char c, int *len);
-char	*printstr(char *str, int *len);
-int		printnbr(long nb, int *len);
-int		printunbr(unsigned long nb, int *len);
-void	printnbrbase(int nbr, char *base, int *len);
-void	printaddr(int nbr, char *base, int *len);
+int	ft_print_percent(void);
+int	ft_print_str(char *str);
+int	ft_print_char(char c);
+int	ft_print_str(char *str);
+int	ft_print_nbr(long long nb);
+int	ft_print_u_nbr(unsigned int nbr);
+int	ft_print_nbr_base(unsigned int nbr, int X);
+int	ft_print_addr(unsigned long addr);
+int	ft_printf(const char *format, ...);
 
 #endif

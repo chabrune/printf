@@ -6,61 +6,63 @@
 /*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:02:18 by chabrune          #+#    #+#             */
-/*   Updated: 2022/11/18 14:17:55 by chabrune         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:21:36 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_search_arg(va_list arg, const char *format, int *len)
+static int	ft_search_arg(va_list arg, const char *format)
 {
+	int	len;
+
+	len = 0;
 	if (*format == 'd' || *format == 'i')
-		printnbr(va_arg(arg, int), len);
+		len += ft_print_nbr(va_arg(arg, int));
+	else if (*format == 'c')
+		len += ft_print_char(va_arg(arg, int));
 	else if (*format == 's')
-		printstr(va_arg(arg, char *), len);
+		len += ft_print_str(va_arg(arg, char *));
 	else if (*format == 'p')
-		printaddr(va_arg(arg, unsigned long), "abcdef0123456789", len);
-	else if (*format == 'u')
-		printunbr(va_arg(arg, unsigned int), len);
+		len += ft_print_addr(va_arg(arg, unsigned long));
 	else if (*format == 'x')
-		printnbrbase(va_arg(arg, unsigned int), "abcdef0123456789", len);
+		len += ft_print_nbr_base(va_arg(arg, unsigned int), 0);
 	else if (*format == 'X')
-		printnbrbase(va_arg(arg, unsigned int), "ABCDEF0123456789", len);
-	return (0);
+		len += ft_print_nbr_base(va_arg(arg, unsigned int), 1);
+	else if (*format == '%')
+		len += ft_print_percent();
+	else if (*format == 'u')
+		len = ft_print_u_nbr(va_arg(arg, unsigned int));
+	return (len);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	int		i;
-	int		ret;
 	va_list	arg;
-	int		*len;
+	int		len;
 
-    len = NULL;
 	va_start(arg, format);
-	i = -1;
-	ret = 0;
-	while (format[++i])
+	i = 0;
+	len = 0;
+	while (format[i])
 	{
 		if (format[i] == '%')
-			ret += ft_search_arg(arg, format, len);
-		else
-			ret += write(1, &format[i], 1);
-		if (!format)
 		{
-			write(1, "(null)", 6);
-			va_end(arg);
-			return (*len);
+			len += ft_search_arg(arg, &format[i + 1]);
+			i++;
 		}
+		else
+			len += write(1, &format[i], 1);
+		i++;
 	}
 	va_end(arg);
-	return (*len);
+	return (len);
 }
 
 // #include <stdio.h>
-// int	main(void)
+// int main(void)
 // {
-// 	ft_printf("Hello\n");
-// 	printf("Hello\n");
+// 	printf("%p %p\n", 0, 0);
+// 	ft_printf("%p %p\n", 0, 0);
 // }
-
