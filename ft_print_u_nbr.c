@@ -6,7 +6,7 @@
 /*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:05:04 by chabrune          #+#    #+#             */
-/*   Updated: 2022/11/23 13:32:10 by chabrune         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:52:39 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,34 @@ static int	ft_u_len(unsigned int nb)
 
 int	ft_put_u_nbr(unsigned int nb)
 {
-	if (nb > 9)
+	if (nb <= 9)
 	{
-		ft_put_u_nbr(nb / 10);
-		ft_put_u_nbr(nb % 10);
+		if (ft_print_char(nb + 48) <= -1)
+			return (-1);
 	}
 	else
-		ft_print_char(nb + 48);
-	return (nb);
+	{
+		if (ft_put_u_nbr(nb / 10) == -1)
+			return (-1);
+		if (ft_put_u_nbr(nb % 10) == -1)
+			return (-1);
+	}
+	return (0);
 }
 
 int	ft_print_u_nbr(unsigned int nbr)
 {
 	if (nbr == 0)
-		return (write(1, "0", 1));
+	{
+		if (write(1, "0", 1) <= 0)
+			return (-1);
+		else
+			return (1);
+	}
 	else
-		ft_put_u_nbr(nbr);
+	{
+		if (ft_put_u_nbr(nbr) <= -1)
+			return (-1);
+	}
 	return (ft_u_len(nbr));
 }

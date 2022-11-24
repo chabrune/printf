@@ -6,26 +6,33 @@
 /*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 12:49:18 by chabrune          #+#    #+#             */
-/*   Updated: 2022/11/23 13:41:13 by chabrune         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:07:07 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr(long long nb)
+int	ft_putnbr(long long nb)
 {
 	if (nb < 0)
 	{
-		ft_print_char('-');
+		if (ft_print_char('-') <= 0)
+			return (-1);
 		nb = -nb;
 	}
-	if (nb >= 10)
+	if (nb <= 9)
 	{
-		ft_putnbr(nb / 10);
-		ft_putnbr(nb % 10);
+		if (ft_print_char(nb + 48) <= 0)
+			return (-1);
 	}
 	else
-		ft_print_char(nb + 48);
+	{
+		if (ft_putnbr(nb / 10) == -1)
+			return (-1);
+		if (ft_putnbr(nb % 10) == -1)
+			return (-1);
+	}
+	return (0);
 }
 
 static int	ft_len(long long nb)
@@ -51,8 +58,16 @@ static int	ft_len(long long nb)
 int	ft_print_nbr(long long nbr)
 {
 	if (nbr == 0)
-		return (write(1, "0", 1));
+	{
+		if (write(1, "0", 1) <= 0)
+			return (-1);
+		else
+			return (1);
+	}
 	else
-		ft_putnbr(nbr);
+	{
+		if (ft_putnbr(nbr) <= -1)
+			return (-1);
+	}
 	return (ft_len(nbr));
 }

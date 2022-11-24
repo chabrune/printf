@@ -6,7 +6,7 @@
 /*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:29:34 by chabrune          #+#    #+#             */
-/*   Updated: 2022/11/22 17:58:19 by chabrune         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:26:56 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_print_char(char c)
 {
-	write(1, &c, 1);
+	if (write(1, &c, 1) <= 0)
+		return (-1);
 	return (1);
 }

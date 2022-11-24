@@ -6,7 +6,7 @@
 /*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:15:41 by chabrune          #+#    #+#             */
-/*   Updated: 2022/11/23 14:21:44 by chabrune         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:27:07 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_addr_len(unsigned long addr)
 	return (len);
 }
 
-static void	ft_put_addr(unsigned long addr)
+static int	ft_put_addr(unsigned long addr)
 {
 	if (addr >= 16)
 	{
@@ -35,23 +35,37 @@ static void	ft_put_addr(unsigned long addr)
 	else
 	{
 		if (addr <= 9)
-			ft_print_char(addr + '0');
+		{
+			if (ft_print_char(addr + '0') <= 0)
+				return (-1);
+		}
 		else
-			ft_print_char(addr - 10 + 'a');
+		{
+			if (ft_print_char(addr - 10 + 'a') <= 0)
+				return (-1);
+		}
 	}
+	return (0);
 }
 
 int	ft_print_addr(unsigned long addr)
 {
-	int		len;
+	int	len;
 
 	len = 0;
 	if (addr == 0)
-		len += (write(1, "(nil)", 5));
+	{
+		if (write(1, "0x0", 3) <= 0)
+			return (-1);
+		len += 3;
+	}
 	else
 	{
-		len += write(1, "0x", 2);
-		ft_put_addr(addr);
+		if (write(1, "0x", 2) <= 0)
+			return (-1);
+		len += 2;
+		if (ft_put_addr(addr) == -1)
+			return (-1);
 		len += ft_addr_len(addr);
 	}
 	return (len);

@@ -6,7 +6,7 @@
 /*   By: chabrune <charlesbrunet51220@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 12:18:44 by chabrune          #+#    #+#             */
-/*   Updated: 2022/11/23 13:32:31 by chabrune         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:26:54 by chabrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	ft_print_str(char *str)
 {
-	int		i;
-	int		len;
+	int	i;
 
-	len = 0;
 	i = 0;
 	if (!str)
 	{
-		write(1, "(null)", 6);
+		if (write(1, "(null)", 6) <= 0)
+			return (-1);
 		return (6);
 	}
 	while (str[i])
 	{
-		len += write(1, &str[i], 1);
+		if (write(1, &str[i], 1) <= 0)
+			return (-1);
 		i++;
 	}
-	return (len);
+	return (i);
 }
