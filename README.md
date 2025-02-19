@@ -19,30 +19,7 @@ ft_printf est un projet qui consiste à recréer la célèbre fonction printf en
 | %u | Nombre décimal non signé |
 | %x | Nombre hexadécimal (minuscules) |
 | %X | Nombre hexadécimal (majuscules) |
-| %% | Signe pourcentage |
 
-## 🛠️ Compilation
-
-```bash
-make        # Compile la bibliothèque
-make bonus  # Ajoute les fonctionnalités bonus
-make clean  # Nettoie les fichiers objets
-make fclean # Nettoie tout
-make re     # Recompile tout
-```
-
-## 📚 Utilisation
-
-```c
-#include "ft_printf.h"
-
-int main(void)
-{
-    ft_printf("Hello %s!\n", "world");
-    ft_printf("Number: %d\n", 42);
-    return (0);
-}
-```
 
 ## 🔍 Spécifications Techniques
 
@@ -57,7 +34,6 @@ int main(void)
 - Pas de gestion de buffer comme le printf original
 - Création de la bibliothèque avec ar (pas de libtool)
 - La bibliothèque libftprintf.a doit être à la racine
-- Les bonus ne seront évalués que si la partie obligatoire est parfaite
 
 ---
 *Projet réalisé dans le cadre du cursus de l'école 42*
